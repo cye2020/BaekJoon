@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 
 
 n, m = map(int, sys.stdin.readline().split())
@@ -28,13 +29,30 @@ def dfs(row: int, col: int, num: int):
                 num = dfs(next_row, next_col, num)
     return num
 
+
+def bfs(row: int, col: int, num: int):
+    
+    queue = deque()
+    queue.append((row, col))
+    visited[row][col] = True
+    
+    while queue:
+        row, col = queue.popleft()
+        num += 1
+        color = matrix[row][col]
+
+        for dir in direction:
+            next_row = row + dir[0]
+            next_col = col + dir[1]
+            if (0 <= next_row < m) & (0 <= next_col < n):
+                adj = matrix[next_row][next_col]
+                if (not visited[next_row][next_col]) & (adj == color):
+                    queue.append((next_row, next_col))
+                    visited[next_row][next_col] = True
+    return num
+
+
 if __name__ == '__main__':
-    '''
-    n: int
-        width of battlefield
-    m: int
-        height of battlefield
-    '''
     power = {'W': 0, 'B': 0}
     for row in range(m):
         for col in range(n):
