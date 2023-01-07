@@ -1,3 +1,8 @@
+'''
+시간복잡도 O(V+E)
+V = mn
+E = 4k
+'''
 import sys
 from collections import deque # import에 시간 오래 걸림 (20초 정도)
 sys.setrecursionlimit(10**8)  # DFS 런타임 에러 방지
