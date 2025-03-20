@@ -1,0 +1,1 @@
+from tests.solution1_test import *
