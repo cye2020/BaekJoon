@@ -1,11 +1,5 @@
 from sys import stdin
 
-class Cell():
-    def __init__(self, x, y, value):
-        self.x = x
-        self.y = y
-        self.value = value
-
 class Layer(object):
     def __init__(self, layer, N, M):
         self.layer = layer
