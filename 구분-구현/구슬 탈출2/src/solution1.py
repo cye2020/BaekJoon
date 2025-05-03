@@ -76,23 +76,25 @@ class Game:
 
 def bfs(game: Game, k: int):
     q = deque()
-    q.append([game, k, -1])
-    while k < 10:
-        g, k, d = q.popleft()
+    visited = [[[[False] * game.M for _ in range(game.N)] for _ in range(game.M)] for _ in range(game.N)]
+    q.append([game, k])
+    while q and (k < 10):
+        g, k= q.popleft()
         # print(k, g.matrix)
         cur_game: Game = copy.deepcopy(g)
         for i in range(4):
             # 구슬의 왔다갔다 반복 방지
-            if i == d:
-                continue
             new_game = copy.deepcopy(cur_game)
             new_game.move(i)
+            if (visited[new_game.R.x][new_game.R.y][new_game.B.x][new_game.B.y]):
+                continue
+            visited[new_game.R.x][new_game.R.y][new_game.B.x][new_game.B.y] = True
             if new_game.B.x == new_game.O.x and new_game.B.y == new_game.O.y:
                     continue
             if new_game.R.x == new_game.O.x and new_game.R.y == new_game.O.y:
                 return k + 1
             else:
-                q.append([new_game, k + 1, (i + 2) % 4])
+                q.append([new_game, k + 1])
         del cur_game
     else:
         return -1
